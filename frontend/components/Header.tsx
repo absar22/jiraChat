@@ -8,7 +8,7 @@ export default function Header() {
 
           {/* Logo Section */}
           <Link href="/" className="group flex items-center gap-2 transition-transform active:scale-95">
-            <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/30 ring-1 ring-white/20">
+            <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/30 ring-1 ring-white/20">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 transition-transform group-hover:rotate-12"

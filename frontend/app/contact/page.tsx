@@ -2,16 +2,16 @@
 
 export default function Contact() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-100 to-gray-200 px-4">
       <div className="w-full max-w-lg bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl p-8">
-        
+
         {/* Heading */}
         <div className="text-center mb-6">
           <h1 className="text-4xl font-bold text-gray-900">
             Contact Jira<span className="text-blue-500">Chat</span>
           </h1>
           <p className="text-gray-600 mt-2">
-            Have a question or feedback? We'd love to hear from you.
+            Have a question or feedback? We&apos;d love to hear from you.
           </p>
         </div>
 

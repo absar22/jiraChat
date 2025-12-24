@@ -1,8 +1,19 @@
-export default function Home() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-500">
-      <h1 className="text-4xl font-bold text-white">Welcome to JiraChat</h1>
 
+'use client'
+
+import React from 'react';
+import Hero from '@/components/Hero';
+import Features from '@/components/Features';
+import HowItWorks from '@/components/HowItWorks';
+import CTA from '@/components/CTA';
+
+export default function HomePage() {
+  return (
+    <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-purple-50">
+      <Hero />
+      <Features />
+      <HowItWorks />
+      <CTA />
     </div>
-  )
+  );
 }
