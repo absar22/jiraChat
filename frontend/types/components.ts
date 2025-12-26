@@ -25,3 +25,12 @@ export interface StepCardProps {
   bgColor: string;
 }
 
+export interface OTPInputProps {
+  value: string;
+  onChange: (value: string) => void;
+  onCompleted: () => void;
+  index: number;
+}
+
+export type OtpArray = string[]
+

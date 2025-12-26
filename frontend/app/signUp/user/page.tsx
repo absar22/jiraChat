@@ -15,10 +15,14 @@ export default function SignUpUserPage() {
   const [confirmPassword,setConfirmPassword] = useState('')
   const router = useRouter();
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+const handleSubmit = async (event: React.FormEvent) => {
+  event.preventDefault();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  if(!API_URL) {
+    throw new Error("API_URL is not defined");
+  }
 
-  const res = await fetch("http://localhost:8000/api/auth/signup", {
+  const res = await fetch(`${API_URL}/api/auth/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

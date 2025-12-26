@@ -65,9 +65,9 @@ export default function Footer() {
             <div>
               <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-white mb-6">Offices</h4>
               <ul className="space-y-4 text-sm text-slate-500 dark:text-slate-400">
-                <li><Link href="#" className="hover:text-indigo-500 transition-colors">New York</Link></li>
-                <li><Link href="#" className="hover:text-indigo-500 transition-colors">London</Link></li>
-                <li><Link href="#" className="hover:text-indigo-500 transition-colors">Tokyo</Link></li>
+                <li><Link href="#" className="hover:text-indigo-500 transition-colors">Raebareli</Link></li>
+                <li><Link href="#" className="hover:text-indigo-500 transition-colors">Lucknow</Link></li>
+                <li><Link href="#" className="hover:text-indigo-500 transition-colors">Auckland</Link></li>
               </ul>
             </div>
           </div>

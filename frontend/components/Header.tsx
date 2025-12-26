@@ -43,12 +43,7 @@ export default function Header() {
             ))}
           </ul>
 
-          {/* Action Buttons */}
           <div className="flex items-center gap-4">
-            <Link href="/contact" className="hidden text-sm font-medium text-slate-600 transition-colors hover:text-indigo-500 md:block dark:text-slate-300">
-              Contact
-            </Link>
-
             <Link 
               href="/signin/user" 
               className="text-sm font-medium text-slate-600 transition-colors hover:text-indigo-500 dark:text-slate-300 dark:hover:text-white"
