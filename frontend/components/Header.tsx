@@ -49,7 +49,17 @@ export default function Header() {
               Contact
             </Link>
 
-            <button className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-slate-950 px-6 py-2 text-sm font-medium text-white transition-all hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:bg-indigo-600 dark:hover:bg-indigo-500">
+            <Link 
+              href="/signin/user" 
+              className="text-sm font-medium text-slate-600 transition-colors hover:text-indigo-500 dark:text-slate-300 dark:hover:text-white"
+            >
+              Login
+            </Link>
+
+            <Link 
+              href="/signUp/user" 
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-slate-950 px-6 py-2 text-sm font-medium text-white transition-all hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:bg-indigo-600 dark:hover:bg-indigo-500"
+            >
               <span className="relative flex items-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -63,9 +73,9 @@ export default function Header() {
                     d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z"
                   />
                 </svg>
-                Sign In
+                Sign Up
               </span>
-            </button>
+            </Link>
           </div>
 
         </div>

@@ -9,7 +9,7 @@ import CTA from '@/components/CTA';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-purple-50">
+    <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
       <Hero />
       <Features />
       <HowItWorks />
