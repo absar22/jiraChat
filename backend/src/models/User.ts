@@ -3,7 +3,8 @@ import mongoose, { Schema,Document} from 'mongoose'
 export interface User extends Document {
     username: string,
     password: string,
-    email:string
+    email:string,
+    isVerified: boolean
 }
 const UserSchema = new Schema<User>({
     username:{
@@ -18,6 +19,10 @@ const UserSchema = new Schema<User>({
         unique:true,
         lowercase:true
 
+    },
+    isVerified:{
+        type:Boolean,
+        default:false
     },
     password:{
         type:String,

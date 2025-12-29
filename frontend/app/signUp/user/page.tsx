@@ -5,56 +5,43 @@ import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import api from "@/components/lib/api";
+import { SignUpRequest, SignupResponse } from "@/types/auth";
+import { AxiosError } from "axios";
+
 
 export default function SignUpUserPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [name, setName] = useState('')
+  const [username, setUsername] = useState('')
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
   const [confirmPassword,setConfirmPassword] = useState('')
   const router = useRouter();
 
-const handleSubmit = async (event: React.FormEvent) => {
-  event.preventDefault();
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  if(!API_URL) {
-    throw new Error("API_URL is not defined");
-  }
-
-  const res = await fetch(`${API_URL}/api/auth/signup`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name,
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try {
+    const payload: SignUpRequest = {
+      username,
       email,
       password,
       confirmPassword,
-    }),
-  });
-
-  const data = await res.json();
-
-  if (!res.ok) {
-    console.log(data.message);
-    toast.error(data.message);
-    return;
-  }
-
-  toast.success("Account created!");
-  router.push('/otp')
-};
-
+    };
+    const {data} = await api.post<SignupResponse>('/api/auth/signup', payload)
+    toast.success(data.message)
+    router.push('/otp')
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast.error(error.response?.data.message || "Something went wrong");
+    }
+  }   
+  
+}
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 px-4 py-12">
-      
-      {/* Card */}
       <div className="w-full max-w-md rounded-2xl bg-white/70 backdrop-blur-xl shadow-2xl border border-white/10 dark:bg-slate-900/70 dark:border-white/10 p-8">
-        
-        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-slate-800 dark:text-white">
             Create an account 🚀
@@ -66,8 +53,6 @@ const handleSubmit = async (event: React.FormEvent) => {
 
         {/* Form */}
         <form className="space-y-5" onSubmit={handleSubmit}>
-          
-          {/* Username */}
           <div>
             <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
               Username
@@ -75,8 +60,8 @@ const handleSubmit = async (event: React.FormEvent) => {
             <input
               type="text"
               placeholder="absar22"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-all"
             />
           </div>
