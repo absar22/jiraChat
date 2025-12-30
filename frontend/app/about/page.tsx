@@ -1,16 +1,15 @@
 'use client'
 
-import { CheckCircle2, Target, Zap, Users, Code2, Rocket, FileCode, Type, Palette, Server, Network, Database, Wifi } from 'lucide-react'
+import { CheckCircle2, Target, Zap, Users, Code2, Rocket } from 'lucide-react'
+import  technologies  from '@/utils/data/technologies.json'
+import Image from 'next/image'
 
-const technologies = [
-  { name: 'Next.js', icon: FileCode, color: 'text-black dark:text-white' },
-  { name: 'TypeScript', icon: Type, color: 'text-blue-600 dark:text-blue-400' },
-  { name: 'Tailwind CSS', icon: Palette, color: 'text-cyan-500 dark:text-cyan-400' },
-  { name: 'Node.js', icon: Server, color: 'text-green-600 dark:text-green-400' },
-  { name: 'Express', icon: Network, color: 'text-gray-700 dark:text-gray-300' },
-  { name: 'MongoDB', icon: Database, color: 'text-green-700 dark:text-green-500' },
-  { name: 'WebSockets', icon: Wifi, color: 'text-purple-600 dark:text-purple-400' },
-]
+
+type Technology = {
+  name: string
+  logo: string
+}
+const technologiesList = technologies as Technology[]
 
 const fixes = [
   'Context switching between tools',
@@ -22,7 +21,6 @@ const fixes = [
 export default function About() {
   return (
     <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
-      {/* Animated background elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
@@ -102,8 +100,7 @@ export default function About() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-            {technologies.map((tech, index) => {
-              const IconComponent = tech.icon
+            {technologiesList.map((tech, index) => {
               return (
                 <div
                   key={tech.name}
@@ -113,9 +110,16 @@ export default function About() {
                   <div className="absolute inset-0 bg-linear-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <div className="relative z-10 w-full flex flex-col items-center">
                     <div className="mb-4 transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                      <div className={`w-16 h-16 rounded-xl bg-linear-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 flex items-center justify-center ${tech.color} group-hover:from-indigo-200 group-hover:to-purple-200 dark:group-hover:from-indigo-800 dark:group-hover:to-purple-800 transition-all`}>
-                        <IconComponent className="w-8 h-8" />
-                      </div>
+                     <div className="w-16 h-16 rounded-xl bg-linear-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 flex items-center justify-center transition-all">
+                      <Image
+                        src={tech.logo}
+                        alt={tech.name}
+                        width={36}
+                        height={36}
+                        className="w-9 h-9 object-contain grayscale group-hover:grayscale-0 transition"
+                      />
+                    </div>
+
                     </div>
                     <span className="font-semibold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors text-center">
                       {tech.name}
