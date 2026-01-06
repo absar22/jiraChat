@@ -46,27 +46,22 @@ const features = [
     cardGradient: 'from-teal-50 to-cyan-50',
   },
 ];
-
 export default function Features() {
   return (
-    <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-900/50">
+    <section className="py-24 px-6 bg-[#f7f3f1]">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-white mb-4">
-            Everything Your Team Needs
-          </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-300">
-            Powerful features designed to boost productivity
-          </p>
-        </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <FeatureCard key={index} {...feature} />
+        <h2 className="text-4xl font-bold text-center mb-16">
+          Everything your team needs
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {features.map((f, i) => (
+            <FeatureCard key={i} {...f} />
           ))}
         </div>
+
       </div>
     </section>
-  );
+  )
 }
-

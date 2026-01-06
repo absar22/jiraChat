@@ -4,10 +4,22 @@ export interface User extends Document {
     username: string,
     password: string,
     email:string,
-    isVerified: boolean
+    isVerified: boolean,
+    verificationCode: string,
+    verificationId: string
 }
 const UserSchema = new Schema<User>({
     username:{
+        type:String,
+        required:true,
+        trim:true
+    },
+    verificationCode:{
+        type:String,
+        required:true,
+        trim:true
+    },
+    verificationId:{
         type:String,
         required:true,
         trim:true

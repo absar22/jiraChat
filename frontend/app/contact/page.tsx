@@ -2,47 +2,66 @@
 
 export default function Contact() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-100 to-gray-200 px-4">
-      <div className="w-full max-w-lg bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl p-8">
+    <div className="min-h-screen flex items-center justify-center bg-[#f7f3f1] px-6 py-12">
+
+      {/* Card */}
+      <div className="w-full max-w-lg rounded-2xl border-2 border-black bg-white p-8 shadow-lg">
 
         {/* Heading */}
-        <div className="text-center mb-6">
-          <h1 className="text-4xl font-bold text-gray-900">
-            Contact Jira<span className="text-blue-500">Chat</span>
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-black">
+            Contact Jira<span className="text-[#5dbfc1]">Chat</span>
           </h1>
-          <p className="text-gray-600 mt-2">
-            Have a question or feedback? We&apos;d love to hear from you.
+          <p className="text-sm text-gray-700 mt-2">
+            Have a question or feedback? We’d love to hear from you.
           </p>
         </div>
 
         {/* Form */}
-        <form className="space-y-4">
-          <input
-            type="text"
-            placeholder="Your Name"
-            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
-          />
+        <form className="space-y-5">
 
-          <input
-            type="email"
-            placeholder="Email Address"
-            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
-          />
+          <div>
+            <label className="block text-sm font-medium text-black mb-1">
+              Your Name
+            </label>
+            <input
+              type="text"
+              placeholder="John Doe"
+              className="w-full rounded-lg border-2 border-black bg-white px-4 py-2.5 text-sm placeholder:text-gray-400 focus:outline-none"
+            />
+          </div>
 
-          <textarea
-            rows={4}
-            placeholder="Your Message"
-            className="w-full px-4 py-3 rounded-xl border border-gray-300 resize-none focus:outline-none focus:ring-2 focus:ring-black"
-          />
+          <div>
+            <label className="block text-sm font-medium text-black mb-1">
+              Email Address
+            </label>
+            <input
+              type="email"
+              placeholder="you@email.com"
+              className="w-full rounded-lg border-2 border-black bg-white px-4 py-2.5 text-sm placeholder:text-gray-400 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-black mb-1">
+              Message
+            </label>
+            <textarea
+              rows={4}
+              placeholder="Your message here..."
+              className="w-full rounded-lg border-2 border-black bg-white px-4 py-2.5 text-sm placeholder:text-gray-400 resize-none focus:outline-none"
+            />
+          </div>
 
           <button
             type="submit"
-            className="w-full py-3 rounded-xl bg-black text-white font-semibold hover:bg-gray-900 transition-all duration-300"
+            className="w-full rounded-xl border-2 border-black bg-[#5dbfc1] py-3 font-semibold text-black hover:bg-[#4fb3b6] transition disabled:opacity-60"
           >
             Send Message
           </button>
         </form>
-        <p className="text-center text-sm text-gray-500 mt-6">
+
+        <p className="text-center text-sm text-gray-700 mt-6">
           We usually respond within 24 hours.
         </p>
       </div>

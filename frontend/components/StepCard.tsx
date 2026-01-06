@@ -1,15 +1,21 @@
-import React from 'react';
-import { StepCardProps } from '@/types/components';
+import { StepCardProps } from '@/types/components'
 
-export default function StepCard({ stepNumber, title, description, bgColor }: StepCardProps) {
+export default function StepCard({
+  stepNumber,
+  title,
+  description,
+  bgColor,
+}: StepCardProps) {
   return (
-    <div className="text-center">
-      <div className={`w-16 h-16 ${bgColor} text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg`}>
+    <div className="border-2 border-black rounded-2xl p-8 bg-white text-center">
+      <div
+        className={`w-12 h-12 ${bgColor} rounded-full flex items-center justify-center mx-auto mb-6 font-bold text-white`}
+      >
         {stepNumber}
       </div>
-      <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">{title}</h3>
-      <p className="text-slate-600 dark:text-slate-300">{description}</p>
-    </div>
-  );
-}
 
+      <h3 className="text-xl font-bold mb-3 text-black">{title}</h3>
+      <p className="text-gray-700">{description}</p>
+    </div>
+  )
+}

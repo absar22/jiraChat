@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import User from '../models/User'
 import { hashPassword } from '../utils/hash'
-
+import crypto from 'crypto'
 export const signupUser = async (req: Request, res: Response) => {
   try {
     const { username, email, password, confirmPassword } = req.body;
@@ -24,21 +24,24 @@ export const signupUser = async (req: Request, res: Response) => {
         message: 'User already exists'
       });
     }
+    const verificationId = crypto.randomInt(1000000, 9999999).toString()
+    const otp = 123456  // hardcode for now
     const hashedPassword = await hashPassword(password);
-    // Create new user
+    // Create a new user
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
-      isVerified: false
+      isVerified: false,
+      verificationCode: otp,
+      verificationId: verificationId
     });
-
     await newUser.save();
-
+    console.log('otp',otp)
     res.status(201).json({
-      verificationCode: Math.floor(Math.random()*100000),
+      data: {verificationId},
       success: true,
-      message: 'User created successfully'
+      message: 'Signup succesful please verfy your otp'
     });
 
   } catch (error) {
@@ -49,3 +52,4 @@ export const signupUser = async (req: Request, res: Response) => {
     });
   }
 };
+
