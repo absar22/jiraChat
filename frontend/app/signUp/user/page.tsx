@@ -17,31 +17,46 @@ export default function SignUpUserPage() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const router = useRouter()
+  
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  try {
+    const payload: SignUpRequest = {
+      username,
+      email,
+      password,
+      confirmPassword,
+    }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    try {
-      const payload: SignUpRequest = {
-        username,
-        email,
-        password,
-        confirmPassword,
-      }
-      const { data } = await api.post<SignupResponse>('/api/auth/signup', payload)
+    const { data } = await api.post<SignupResponse>('/api/auth/signup', payload)
+
+    if (data.success === true) {
       toast.success(data.message)
-      router.push('/otp')
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        toast.error(error.response?.data.message || "Something went wrong")
+      const verificationId = data.data?.verificationId
+      if (!verificationId) {
+        toast.error('Verification ID missing')
+        return
       }
+
+      router.push(
+        `/otp?email=${encodeURIComponent(email)}&verificationId=${verificationId}`
+      )
+    } else {
+      toast.error(data.message || 'Signup failed')
+    }
+
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast.error(error.response?.data.message || "Something went wrong")
     }
   }
+}
 
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f7f3f1] px-6 py-12">
       <div className="w-full max-w-md rounded-2xl border-2 border-black bg-white p-8">
         
-        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-black">
             Create an account
@@ -50,11 +65,7 @@ export default function SignUpUserPage() {
             Join JiraChat and start collaborating smarter
           </p>
         </div>
-
-        {/* Form */}
         <form className="space-y-5" onSubmit={handleSubmit}>
-          
-          {/* Username */}
           <div>
             <label className="block text-sm font-medium text-black mb-1">
               Username
@@ -67,8 +78,6 @@ export default function SignUpUserPage() {
               className="w-full rounded-lg border-2 border-black bg-white px-4 py-2.5 text-sm placeholder:text-gray-400 focus:outline-none"
             />
           </div>
-
-          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-black mb-1">
               Email
@@ -81,8 +90,6 @@ export default function SignUpUserPage() {
               className="w-full rounded-lg border-2 border-black bg-white px-4 py-2.5 text-sm placeholder:text-gray-400 focus:outline-none"
             />
           </div>
-
-          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-black mb-1">
               Password
@@ -104,8 +111,6 @@ export default function SignUpUserPage() {
               </button>
             </div>
           </div>
-
-          {/* Confirm Password */}
           <div>
             <label className="block text-sm font-medium text-black mb-1">
               Confirm Password
@@ -127,8 +132,6 @@ export default function SignUpUserPage() {
               </button>
             </div>
           </div>
-
-          {/* Submit */}
           <button
             type="submit"
             className="w-full rounded-xl border-2 border-black bg-[#5dbfc1] py-3 font-semibold text-black hover:bg-[#4fb3b6] transition"
@@ -136,8 +139,6 @@ export default function SignUpUserPage() {
             Create account
           </button>
         </form>
-
-        {/* Footer */}
         <p className="text-center text-sm text-gray-700 mt-6">
           Already have an account?{" "}
           <Link

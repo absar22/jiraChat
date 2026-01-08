@@ -5,6 +5,10 @@ import { Eye, EyeOff } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import Cookies from 'js-cookie'
+
+import { AxiosError } from 'axios'
+import api from "@/components/lib/api"
 
 export default function SignInUserPage() {
   const router = useRouter()
@@ -14,43 +18,33 @@ export default function SignInUserPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
+const handleLogin = async () => {
+  if(!email || !password) {
+    toast.error('Please enter your email and password')
+    return
+  }
+  setLoading(true)
+  try {
+    const { data } = await api.post('/api/auth/login', {
+      email,
+      password,
+    })
 
-    if (!email || !password) {
-      toast.error("All fields are required")
-      return
-    }
+    Cookies.set('token', data.token, {
+      expires: 7,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+    })
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL
-    if (!API_URL) {
-      throw new Error("API_URL is not defined")
-    }
+    toast.success(data.message)
+    router.push('/dashboard')
 
-    try {
-      setLoading(true)
-
-      const res = await fetch(`${API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      })
-
-      const data = await res.json()
-
-      if (!res.ok) {
-        toast.error(data.message || "Login failed")
-        return
-      }
-
-      toast.success("Welcome back!")
-      router.push("/dashboard")
-    } catch {
-      toast.error("Something went wrong")
-    } finally {
-      setLoading(false)
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast.error(error.response?.data.message || 'Login failed')
     }
   }
+}
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f7f3f1] px-6 py-12">
@@ -69,7 +63,10 @@ export default function SignInUserPage() {
         </div>
 
         {/* Form */}
-        <form className="space-y-5" onSubmit={handleSubmit}>
+        <form className="space-y-5" onSubmit={(e)=>{
+          e.preventDefault()
+          handleLogin()}
+         }>
           
           {/* Email */}
           <div>

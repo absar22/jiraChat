@@ -1,5 +1,4 @@
 
-import React from 'react';
 import Hero from '@/components/Hero';
 import Features from '@/components/Features';
 import HowItWorks from '@/components/HowItWorks';
@@ -27,12 +26,9 @@ export const metadata: Metadata = {
 
 }
 
-
 export default function HomePage() {
   return (
-    // <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
     <div className="min-h-screen bg-[#f7f3f1] px-6 py-10">
-
       <Hero />
       <Features />
       <HowItWorks />

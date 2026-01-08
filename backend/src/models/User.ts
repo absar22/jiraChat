@@ -5,8 +5,8 @@ export interface User extends Document {
     password: string,
     email:string,
     isVerified: boolean,
-    verificationCode: string,
-    verificationId: string
+    verificationCode: string | null,
+    verificationId: string | null
 }
 const UserSchema = new Schema<User>({
     username:{
@@ -15,14 +15,14 @@ const UserSchema = new Schema<User>({
         trim:true
     },
     verificationCode:{
-        type:String,
-        required:true,
-        trim:true
+       type: String,
+       trim: true,
+       default: null
     },
     verificationId:{
         type:String,
-        required:true,
-        trim:true
+        trim: true,
+        default: null
     },
     email:{
         type:String,

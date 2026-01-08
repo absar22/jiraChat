@@ -3,10 +3,14 @@ export interface SignUpRequest {
     email: string;
     password: string;
     confirmPassword: string;
+   
 }
 
 export interface SignupResponse {
   success: boolean;
   message: string;
-  verificationCode?: number;
+  verificationId?: number;
+  data?: {
+    verificationId: number;
+  };
 }

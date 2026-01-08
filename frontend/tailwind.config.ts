@@ -6,7 +6,15 @@ const config: Config = {
     "./components/**/*.{ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        brand:'#5dbfc1',
+        'bg-soft':'#f7f3f1'
+      },
+      fontFamily: {
+        'sans': ['var(--font-outfit)', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };
