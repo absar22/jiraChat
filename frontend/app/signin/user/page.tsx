@@ -48,11 +48,8 @@ const handleLogin = async () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f7f3f1] px-6 py-12">
-      
-      {/* Card */}
       <div className="w-full max-w-md rounded-2xl border-2 border-black bg-white p-8">
 
-        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-black">
             Welcome back
@@ -68,7 +65,6 @@ const handleLogin = async () => {
           handleLogin()}
          }>
           
-          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-black mb-1">
               Email
@@ -96,10 +92,12 @@ const handleLogin = async () => {
                 className="w-full rounded-lg border-2 border-black bg-white px-4 py-2.5 pr-10 text-sm placeholder:text-gray-400 focus:outline-none"
               />
               <button
-                type="button"
+                type="submit"
+                disabled={loading}
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 right-3 flex items-center text-black"
               >
+                {loading ? 'signning in...' : 'sign in'}
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>

@@ -1,21 +1,33 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import Button from "./Button"
+import Cookies from "js-cookie"
+import { usePathname } from "next/navigation"
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
+const [isOpen, setIsOpen] = useState(false)
+const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  const navItems = ["Dashboard", "Chat"]
+const handleLogout = () => {
+  Cookies.remove('token')
+  setIsAuthenticated(false)
+}
+
+const pathname = usePathname()
+useEffect(() => {
+  setIsAuthenticated(!!Cookies.get('token'))
+}, [pathname])
+
+  const navItems = isAuthenticated ? ["Dashboard", "Chat"] : []
 
   return (
     <header className="sticky top-0 z-50 bg-[#f7f3f1] border-b-2 border-black shadow-sm">
       <nav className="max-w-7xl mx-auto px-6">
         <div className="flex h-20 items-center justify-between">
 
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="h-10 w-10 rounded-xl border-2 border-black bg-[#5dbfc1] flex items-center justify-center font-bold text-black text-lg">
               J
@@ -23,7 +35,7 @@ export default function Header() {
             <span className="text-xl font-bold text-black">JiraChat</span>
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop Navigation */}
           <ul className="hidden md:flex gap-8 font-medium text-black">
             {navItems.map((item) => (
               <li key={item}>
@@ -40,12 +52,27 @@ export default function Header() {
 
           {/* Desktop Buttons */}
           <div className="hidden md:flex gap-3">
-            <Link href="/signin/user">
-              <Button variant="secondary">Login</Button>
-            </Link>
-            <Link href="/signUp/user">
-              <Button>Sign Up</Button>
-            </Link>
+            {!isAuthenticated ? (
+              <>
+              <Link href="/signin/user">
+              <Button variant="secondary">Log in</Button>
+              </Link>
+              <Link href="/signUp/user" >
+              <Button variant="secondary">Sign Up</Button>
+              </Link>
+              </>
+            ):(
+              <>
+              <Link href="/profile">
+              <Button variant="secondary">Profile</Button>
+              </Link>
+              <Button
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Hamburger */}
@@ -74,16 +101,38 @@ export default function Header() {
                 </li>
               ))}
             </ul>
-            <div className="flex flex-col gap-3 mt-2">
-              <Link href="/signin/user">
-                <Button variant="secondary" className="w-full">
-                  Login
-                </Button>
-              </Link>
-              <Link href="/signUp/user">
-                <Button className="w-full">Sign Up</Button>
-              </Link>
-            </div>
+           <div className="flex flex-col gap-3 mt-2">
+         {!isAuthenticated ? (
+          <>
+            <Link href="/signin/user">
+              <Button variant="secondary" className="w-full">
+                Login
+              </Button>
+            </Link>
+            <Link href="/signUp/user">
+              <Button className="w-full">Sign Up</Button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link href="/profile" onClick={() => setIsOpen(false)}>
+              <Button variant="secondary" className="w-full">
+                Profile
+              </Button>
+            </Link>
+            <Button
+              onClick={() => {
+                handleLogout()
+                setIsOpen(false)
+              }}
+              className="w-full"
+            >
+              Logout
+            </Button>
+          </>
+        )}
+      </div>
+
           </div>
         )}
       </nav>
